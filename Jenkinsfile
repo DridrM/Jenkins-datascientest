@@ -1,11 +1,5 @@
 pipeline {
-    agent {
-    docker {
-      filename 'Dockerfile'  // default is 'Dockerfile', so this is optional
-      dir '.'                // path to the Dockerfile
-      label ''               // optional: can specify agent label
-    }
-  }
+    agent { dockerfile true }
     environment { 
       DOCKER_ID = "dridrmn"
       DOCKER_IMAGE = "datascientestapi"
