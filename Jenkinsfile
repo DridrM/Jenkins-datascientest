@@ -14,7 +14,11 @@ pipeline {
     stages {
         stage('Building') {
           steps {
-            sh 'pip install --no-cache-dir --prefix=/usr/local -r requirements.txt'
+            sh '''
+  python -m venv venv
+  . venv/bin/activate
+  pip install -r requirements.txt
+'''
           }
         }
         stage('Testing') {
