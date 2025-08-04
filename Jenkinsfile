@@ -35,8 +35,7 @@ pipeline {
                   )
                 }    
             }
-          }
-          stage('Pushing and Merging'){
+            stage('Pushing and Merging') {
             parallel {
                 stage('Pushing Image') {
                   environment {
@@ -54,9 +53,11 @@ pipeline {
             }
           }
         }
-    }
-    post {
+      }
+      post {
       always {
         sh 'docker logout'
+        }
       }
-}
+    }
+    
