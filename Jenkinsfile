@@ -23,7 +23,10 @@ pipeline {
         }
         stage('Testing') {
           steps {
-                sh 'python -m unittest'
+                sh '''
+                . venv/bin/activate
+                python -m unittest
+                '''
           }
         }
           stage('Deploying') {
