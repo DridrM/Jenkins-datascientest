@@ -1,20 +1,17 @@
-import unittest
+import pytest
 from app import app
 
-class FlaskTestCase(unittest.TestCase):
+@pytest.fixture
+def client():
+    with app.test_client() as client:
+        yield client
 
-    def setUp(self):
-        self.app = app.test_client()
+def test_hello(client):
+    response = client.get('/api/hello')
+    assert response.status_code == 200
+    assert response.get_json() == {'hello': 'world'}
 
-    def test_hello(self):
-        response = self.app.get('/api/hello')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json, {'hello': 'world'})
-
-    def test_hello_name(self):
-        response = self.app.get('/api/hello/ben')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json, {'hello': 'ben'})
-
-if __name__ == '__main__':
-    unittest.main()
+def test_hello_name(client):
+    response = client.get('/api/hello/ben')
+    assert response.status_code == 200
+    assert response.get_json() == {'hello': 'ben'}
