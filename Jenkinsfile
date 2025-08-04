@@ -14,7 +14,6 @@ pipeline {
     stages {
         stage('Building') {
           steps {
-            sh 'pip install --upgrade pip'
             sh 'pip install --no-cache-dir --prefix=/usr/local -r requirements.txt'
           }
         }
